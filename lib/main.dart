@@ -66,7 +66,7 @@ class _MyAppState extends State<MyApp>with WidgetsBindingObserver {
           initialRoute: AppPages.INITIAL,
           getPages: AppPages.routes,
           theme: ThemeData(
-            scaffoldBackgroundColor: Colors.yellow.shade100,
+            scaffoldBackgroundColor: Colors.yellow.shade50,
             fontFamily: "Poppins",
           ),
         );

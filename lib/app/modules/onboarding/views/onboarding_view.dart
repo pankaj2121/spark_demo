@@ -37,19 +37,20 @@ class OnboardingView extends GetView<OnboardingController> {
           Obx(
             () => Positioned(
               top: _onBoardController.count == 1
-                  ? 200.h
+                  ? 100.h
                   : _onBoardController.count == 2
-                      ? 400.h
-                      : 500.h,
-              left: 100.w,
+                      ? 250.h
+                      : 250.h,
+              right: -100.w,
               child: Stack(
                 clipBehavior: Clip.none,
                 children: [
                   Positioned(
-                    top: -100.h,
+                    top: -180.h,
+                    right: 180.w,
                     child: Container(
                     decoration: BoxDecoration(
-                      shape: BoxShape.circle,color: Colors.amber.shade100,
+                      shape: BoxShape.circle,color: Colors.amber.shade100.withOpacity(0.75),
                     ),
                     height :200.h, width:200.w,),),
                   Lottie.asset(
@@ -59,7 +60,7 @@ class OnboardingView extends GetView<OnboardingController> {
                     fit: BoxFit.cover,
                   ),
                   BackdropFilter(
-                    blendMode: BlendMode.overlay,
+                    // blendMode: BlendMode.overlay,
                     filter: ImageFilter.blur(
                       sigmaX: 500,
                       sigmaY: 500,
