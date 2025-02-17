@@ -4,9 +4,10 @@
     <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
-        android:label="spark_demo"
+        android:label="Spark"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:hardwareAccelerated="true">
         <activity
             android:name=".MainActivity"
             android:exported="true"

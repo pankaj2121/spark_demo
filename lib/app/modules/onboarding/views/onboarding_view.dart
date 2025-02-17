@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:camera/camera.dart';
 import 'package:demo_app/app/widgets/chat_card.dart';
 import 'package:demo_app/app/widgets/custom_buttom.dart';
@@ -8,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
-import 'package:stacked_card_carousel/stacked_card_carousel.dart';
 import '../../../widgets/custom_video_player.dart';
 import '../../../widgets/stepper.dart';
 import '../controllers/onboarding_controller.dart';
@@ -36,25 +34,35 @@ class OnboardingView extends GetView<OnboardingController> {
     return Scaffold(
       body: Stack(
         children: [
-          // 🔹 Background Lottie Animation with Blur Effect
-          Positioned(
-            top: 350.h,
-            left: 40.w,
-            child: Stack(
-              children: [
-                Lottie.asset(
-                  'assets/sparkl_shape_shift_lottie.json',
-                  height: 400.h,
-                  width: 400.w,
-                  fit: BoxFit.cover,
-                ),
-                BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 50, sigmaY: 150), // 🔹 Blur effect
-                  child: Container(
-                    color: Colors.transparent, // Maintains visibility of blurred animation
+          Obx(
+            () => Positioned(
+              top: _onBoardController.count == 1
+                  ? 300.h
+                  : _onBoardController.count == 2
+                      ? 350
+                      : 400.h,
+              left: 40.w,
+              child: Stack(
+                children: [
+                  Lottie.asset(
+                    'assets/sparkl_shape_shift_lottie.json',
+                    height: 400.h,
+                    width: 400.w,
+                    fit: BoxFit.cover,
                   ),
-                ),
-              ],
+                  BackdropFilter(
+                    blendMode: BlendMode.overlay,
+                    filter: ImageFilter.blur(
+                      sigmaX: 100,
+                      sigmaY: 100,
+                    ),
+                    child: Container(
+                      color: Colors
+                          .transparent, // Maintains visibility of blurred animation
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
           Padding(
@@ -77,9 +85,8 @@ class OnboardingView extends GetView<OnboardingController> {
           ),
         ],
       ),
-    );;
+    );
   }
-
   Widget header() {
     return SizedBox(
       height: double.infinity,
@@ -178,10 +185,8 @@ class OnboardingView extends GetView<OnboardingController> {
             // for stack_card -------------------------------------------------
             Obx(() => AnimatedPositioned(
                   duration: const Duration(seconds: 1),
-                  curve: Curves.easeInOut,
-                  left: _onBoardController.count == 2 ? 5.w : 0,
-                  right: _onBoardController.count == 2 ? 5.w : 0,
-                  bottom: _onBoardController.count == 2 ? 90.h : 0,
+                  curve: Curves.easeOutBack,
+                  right: _onBoardController.count == 2 ? -2.w : -500,
                   child: AnimatedContainer(
                     duration: const Duration(seconds: 1),
                     curve: Curves.easeInOut,
@@ -189,12 +194,39 @@ class OnboardingView extends GetView<OnboardingController> {
                         ? 350.w
                         : 0, // Shrink size when moved
                     height: _onBoardController.count == 2 ? 250.h : 0,
-                    child: StackedCardCarousel(
-                      spaceBetweenItems: 5,
-                      type: StackedCardCarouselType.cardsStack,
-                      items: List.generate(5, (index) {
-                        return Image.asset('assets/stack_card.png');
-                      }),
+                    child: Stack(
+                      alignment: Alignment.center,
+                      clipBehavior: Clip.none,
+                      children: [
+                        Positioned(
+                            top: -27.h,
+                            child: Image.asset(
+                              'assets/stack_card.png',
+                              height: 320.h,
+                              width: 300.w,
+                            )),
+                        Positioned(
+                            top: -4.h,
+                            child: Image.asset(
+                              'assets/stack_card.png',
+                              height: 320.h,
+                              width: 320.w,
+                            )),
+                        Positioned(
+                            top: 22.h,
+                            child: Image.asset(
+                              'assets/stack_card.png',
+                              height: 320.h,
+                              width: 350.w,
+                            )),
+                        Positioned(
+                            top: 50.h,
+                            child: Image.asset(
+                              'assets/stack_card.png',
+                              height: 320.h,
+                              width: 380.w,
+                            ))
+                      ],
                     ),
                   ),
                 )),
@@ -343,7 +375,7 @@ class OnboardingView extends GetView<OnboardingController> {
                       bottom: _onBoardController.count == 1
                           ? 90.h
                           : _onBoardController.count == 2
-                              ? -20.h
+                              ? -10.h
                               : _onBoardController.count == 3
                                   ? 220.h
                                   : 0.h,
