@@ -43,7 +43,15 @@ class OnboardingView extends GetView<OnboardingController> {
                       : 500.h,
               left: 100.w,
               child: Stack(
+                clipBehavior: Clip.none,
                 children: [
+                  Positioned(
+                    top: -100.h,
+                    child: Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,color: Colors.amber.shade100,
+                    ),
+                    height :200.h, width:200.w,),),
                   Lottie.asset(
                     'assets/sparkl_shape_shift_lottie.json',
                     height: 300.h,
