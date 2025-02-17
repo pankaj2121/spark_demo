@@ -37,24 +37,24 @@ class OnboardingView extends GetView<OnboardingController> {
           Obx(
             () => Positioned(
               top: _onBoardController.count == 1
-                  ? 300.h
+                  ? 200.h
                   : _onBoardController.count == 2
-                      ? 350
-                      : 400.h,
-              left: 40.w,
+                      ? 400.h
+                      : 500.h,
+              left: 100.w,
               child: Stack(
                 children: [
                   Lottie.asset(
                     'assets/sparkl_shape_shift_lottie.json',
-                    height: 400.h,
-                    width: 400.w,
+                    height: 300.h,
+                    width: 300.w,
                     fit: BoxFit.cover,
                   ),
                   BackdropFilter(
                     blendMode: BlendMode.overlay,
                     filter: ImageFilter.blur(
-                      sigmaX: 100,
-                      sigmaY: 100,
+                      sigmaX: 500,
+                      sigmaY: 500,
                     ),
                     child: Container(
                       color: Colors
