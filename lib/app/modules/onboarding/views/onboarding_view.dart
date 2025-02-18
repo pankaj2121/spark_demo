@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:camera/camera.dart';
+import 'package:demo_app/app/modules/home/views/home_view.dart';
 import 'package:demo_app/app/widgets/chat_card.dart';
 import 'package:demo_app/app/widgets/custom_buttom.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -532,6 +533,8 @@ class OnboardingView extends GetView<OnboardingController> {
                   if (_onBoardController.count < 3) {
                     _onBoardController.increment();
                     _onBoardController.incrementProgress();
+                  }else{
+                    Get.to(HomeView());
                   }
                 },
                 title: _onBoardController.count < 3 ? "Next" : "Get Started",

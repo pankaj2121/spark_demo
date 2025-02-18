@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'app/modules/onboarding/controllers/onboarding_controller.dart';
 import 'app/routes/app_pages.dart';
 
@@ -35,17 +36,17 @@ class _MyAppState extends State<MyApp>with WidgetsBindingObserver {
     });
   }
 
-  // @override
-  // void didChangeAppLifecycleState(AppLifecycleState state) async {
-  //   if (state == AppLifecycleState.resumed) {
-  //     // App is back in the foreground, check permission again
-  //     PermissionStatus status = await Permission.camera.status;
-  //     if (status.isGranted && !_onBoardController.isPermissionGranted.value) {
-  //       _onBoardController.isPermissionGranted.value = true;
-  //       await _onBoardController.initializeCamera();
-  //     }
-  //   }
-  // }
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
+    if (state == AppLifecycleState.resumed) {
+      // App is back in the foreground, check permission again
+      PermissionStatus status = await Permission.camera.status;
+      if (status.isGranted && !_onBoardController.isPermissionGranted.value) {
+        _onBoardController.isPermissionGranted.value = true;
+        await _onBoardController.initializeCamera();
+      }
+    }
+  }
 
   @override
   void dispose() {
@@ -66,7 +67,8 @@ class _MyAppState extends State<MyApp>with WidgetsBindingObserver {
           initialRoute: AppPages.INITIAL,
           getPages: AppPages.routes,
           theme: ThemeData(
-            scaffoldBackgroundColor: Colors.yellow.shade50,
+            scaffoldBackgroundColor: Colors.white,
+            // scaffoldBackgroundColor: Colors.yellow.shade50,
             fontFamily: "Poppins",
           ),
         );
