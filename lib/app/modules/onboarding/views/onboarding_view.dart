@@ -76,7 +76,7 @@ class OnboardingView extends GetView<OnboardingController> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 35.h),
+            padding: EdgeInsets.symmetric(vertical: 40.h),
             child: Column(
               children: [
                 Expanded(flex: 1, child: header()),
@@ -534,7 +534,7 @@ class OnboardingView extends GetView<OnboardingController> {
                     _onBoardController.increment();
                     _onBoardController.incrementProgress();
                   }else{
-                    Get.to(HomeView());
+                    Get.offAll(HomeView());
                   }
                 },
                 title: _onBoardController.count < 3 ? "Next" : "Get Started",

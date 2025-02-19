@@ -6,6 +6,8 @@ import '../modules/live/bindings/live_binding.dart';
 import '../modules/live/views/live_view.dart';
 import '../modules/onboarding/bindings/onboarding_binding.dart';
 import '../modules/onboarding/views/onboarding_view.dart';
+import '../modules/recommended/bindings/recommended_binding.dart';
+import '../modules/recommended/views/recommended_view.dart';
 
 part 'app_routes.dart';
 
@@ -26,8 +28,14 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.LIVE,
-      page: () => LiveView(videoPath:'', title: '', description: '',topic: ''),
+      page: () =>
+          LiveView(videoPath: '', title: '', description: '', topic: ''),
       binding: LiveBinding(),
+    ),
+    GetPage(
+      name: _Paths.RECOMMENDED,
+      page: () => RecommendedView(title: '', image: '',),
+      binding: RecommendedBinding(),
     ),
   ];
 }

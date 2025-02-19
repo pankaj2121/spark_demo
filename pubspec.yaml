@@ -37,12 +37,13 @@ dependencies:
   get: ^4.7.1
   flutter_screenutil: ^5.9.3
   video_player: ^2.9.2
-  chewie: ^1.10.0
+#  chewie: ^1.10.0
   chat_bubbles: ^1.7.0
   lottie: ^3.0.0
   dotted_border: ^2.1.0
   permission_handler: ^11.0.1
   camera: ^0.10.5
+  flutter_card_swiper: ^7.0.2
 
 dev_dependencies:
   flutter_test:

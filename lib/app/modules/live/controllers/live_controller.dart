@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 class LiveController extends GetxController {
 
   RxBool isPlaying = false.obs; // Reactive boolean variable
-  RxBool isShowing = false.obs; // Reactive boolean variable
+  RxBool isShowing = true.obs; // Reactive boolean variable
 
   togglePlayButton() {
     isPlaying.value = !isPlaying.value;
@@ -14,14 +14,14 @@ class LiveController extends GetxController {
 
   List<Map<String, dynamic>> comments = [
     {
-      "comment": "Good.",
+      "comment": "Thank yoy sir.",
       "commentedBy" : "Saurav verma "
     },
     {
       "comment": "very good",
       "commentedBy" : "Himenat chaurashiya "
     },  {
-      "comment": "understood",
+      "comment": "Well taught sir, i really liked it.",
       "commentedBy" : "Ashutosh verma "
     },  {
       "comment": "excellent",
@@ -30,7 +30,7 @@ class LiveController extends GetxController {
       "comment": "Concept cleared now.",
       "commentedBy" : "Saurav verma "
     },  {
-      "comment": "Nice.",
+      "comment": "Now understood the concept.",
       "commentedBy" : "Saurav verma "
     },
   ];

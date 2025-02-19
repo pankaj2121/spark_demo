@@ -27,14 +27,15 @@ class _MyAppState extends State<MyApp>with WidgetsBindingObserver {
   final OnboardingController _onBoardController =
       Get.put(OnboardingController());
 
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this); // Observe app lifecycle changes
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _onBoardController.requestCameraPermission();
-    });
-  }
+  //todo
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   WidgetsBinding.instance.addObserver(this); // Observe app lifecycle changes
+  //   WidgetsBinding.instance.addPostFrameCallback((_) {
+  //     _onBoardController.requestCameraPermission();
+  //   });
+  // }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) async {
@@ -70,6 +71,13 @@ class _MyAppState extends State<MyApp>with WidgetsBindingObserver {
             scaffoldBackgroundColor: Colors.white,
             // scaffoldBackgroundColor: Colors.yellow.shade50,
             fontFamily: "Poppins",
+            appBarTheme: AppBarTheme(
+              centerTitle: true,
+              backgroundColor: Colors.transparent,
+              titleTextStyle: TextStyle(
+                fontSize: 18.sp,
+                  fontWeight: FontWeight.w600, color: Colors.black)
+            )
           ),
         );
       },

@@ -1,3 +1,4 @@
+import 'package:demo_app/app/strings/image_path.dart';
 import 'package:demo_app/app/widgets/custom_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,7 +6,8 @@ import 'package:get/get.dart';
 import '../controllers/live_controller.dart';
 
 class LiveView extends GetView<LiveController> {
-  LiveController _liveController = Get.put(LiveController());
+  final LiveController _liveController = Get.put(LiveController());
+  final TextEditingController _controller = TextEditingController();
 
   final String videoPath;
   final String title;
@@ -22,9 +24,6 @@ class LiveView extends GetView<LiveController> {
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
-        centerTitle: true,
-        elevation: 0,
-        backgroundColor: Colors.transparent,
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -81,94 +80,147 @@ class LiveView extends GetView<LiveController> {
               // ))
             ],
           ),
-          SizedBox(
-            height: 5.h,
-          ),
-          Theme(
-            data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
-            child: ExpansionTile(
-              dense: true,
-              title: Text(title),
-              leading: CircleAvatar(
-                radius: 20.r,
-                backgroundColor: Colors.amber,
-                child: CircleAvatar(
-                  radius: 18.r,
-                  backgroundImage: AssetImage("assets/pre_read_selected.png"),
-                ),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.all(8.sp),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  Theme(
+                    data: Theme.of(context)
+                        .copyWith(dividerColor: Colors.transparent),
+                    child: ExpansionTile(
+                      dense: true,
+                      title: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(title),
+                          IconButton(
+                              onPressed: () {}, icon: Icon(Icons.bookmark_border))
+                        ],
+                      ),
+                      leading: CircleAvatar(
+                        radius: 20.r,
+                        backgroundColor: Colors.amber,
+                        child: CircleAvatar(
+                          radius: 18.r,
+                          backgroundImage: AssetImage(ImagePath.preReadSelected),
+                        ),
+                      ),
+                      children: [
+                        Text(description),
+                      ],
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TextButton.icon(
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.circular(5.r), // Rounded corners
+                          ),
+                          elevation: 2, // Shadow effect
+                        ),
+                        onPressed: () {
+                          _liveController.toggleComments();
+                        },
+                        label: Obx(
+                          () => Icon(
+                            _liveController.isShowing.value
+                                ? Icons.arrow_drop_up
+                                : Icons.arrow_drop_down,
+                            color: Colors.black54,
+                          ),
+                        ),
+                        icon: Text(
+                          "Comments",
+                          style: TextStyle(color: Colors.black54),
+                        ),
+                      ),
+                      IconButton(onPressed: () {}, icon: Icon(Icons.filter_list))
+                    ],
+                  ),
+                  Obx(() => _liveController.isShowing.value == true
+                      ? Expanded(
+                          child: ListView.builder(
+                              itemCount: _liveController.comments.length,
+                              itemBuilder: (context, index) {
+                                return ListTile(
+                                  dense: true,
+                                  leading: CircleAvatar(
+                                    radius: 8.r,
+                                    backgroundImage:
+                                        AssetImage("assets/emoji.png"),
+                                  ),
+                                  title: RichText(
+                                    text: TextSpan(
+                                      text:
+                                          "@${_liveController.comments[index]["commentedBy"]}",
+                                      style: TextStyle(
+                                          fontSize: 10.sp, color: Colors.black54),
+                                      children: [
+                                        TextSpan(
+                                          text: '. ',
+                                        ),
+                                        TextSpan(
+                                          text: '2h ago',
+                                          style: TextStyle(
+                                              fontSize: 10.sp,
+                                              color: Colors.black54),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  subtitle: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        _liveController.comments[index]
+                                            ["comment"],
+                                        style: TextStyle(fontSize: 11.sp),
+                                      ),
+                                      Row(
+                                        children: [
+                                          IconButton(
+                                              onPressed: () {},
+                                              icon: Icon(
+                                                Icons.thumb_up_alt_outlined,
+                                                size: 12.sp,
+                                              )),
+                                          IconButton(
+                                              onPressed: () {},
+                                              icon: Icon(
+                                                Icons.thumb_down_alt_outlined,
+                                                size: 12.sp,
+                                              )),
+                                          IconButton(
+                                              onPressed: () {},
+                                              icon: Icon(
+                                                Icons.insert_comment_outlined,
+                                                size: 12.sp,
+                                              ))
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                  trailing: IconButton(
+                                      onPressed: () {},
+                                      icon: Icon(
+                                        Icons.more_vert,
+                                        size: 12.sp,
+                                      )),
+                                );
+                              }),
+                        )
+                      : Container()),
+                ],
               ),
-              children: [
-                Text(description),
-              ],
             ),
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal:8.w),
-            child: Divider(),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Padding(
-                padding: EdgeInsets.all(8.w),
-                child: TextButton.icon(
-                  onPressed: () {
-                    _liveController.toggleComments();
-                  },
-                  label:Obx(()=> Icon(
-                    _liveController.isShowing.value ? Icons.arrow_drop_up: Icons.arrow_drop_down,
-                    color: Colors.black54,
-                  ),),
-                  icon: Text(
-                    "Comments",
-                    style: TextStyle(color: Colors.black54),
-                  ),
-                ),
-              ),
-              IconButton(onPressed: () {
-
-              }, icon: Icon(Icons.sort))
-            ],
-          ),
-          Obx(()=>_liveController.isShowing.value == true?Expanded(
-            child: ListView.builder(
-                itemCount: _liveController.comments.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                      padding:
-                      EdgeInsets.symmetric(horizontal: 12.w, vertical: 5.h),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(_liveController.comments[index]["comment"]),
-                              IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(
-                                    Icons.favorite_border,
-                                    size: 15.sp,
-                                  ))
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              SizedBox(width: 10.w),
-                              CircleAvatar(
-                                radius: 10.r,
-                                backgroundImage: AssetImage("assets/emoji.png"),
-                              ),
-                              SizedBox(width: 10.w),
-                              Text(
-                                _liveController.comments[index]["commentedBy"],
-                                style: TextStyle(fontSize: 10.sp),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ));
-                }),
-          ): Container())
 
         ],
       ),
