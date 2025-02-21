@@ -1,30 +1,40 @@
 import 'package:demo_app/app/modules/live/views/live_view.dart';
 import 'package:demo_app/app/modules/recommended/views/recommended_view.dart';
+import 'package:demo_app/app/strings/app_colors.dart';
 import 'package:demo_app/app/strings/image_path.dart';
 import 'package:demo_app/app/widgets/custom_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../widgets/custom_drawer.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
   final HomeController _homeController = Get.put(HomeController());
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   HomeView({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
+      drawer: CustomDrawer(userName: 'John',userEmail: "john@gmail.com",userImagePath: ImagePath.blueBook,),
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () {},
-          icon: Icon(
-            Icons.person_2_rounded,
-            color: Colors.black54,
+          onPressed: () {
+            _scaffoldKey.currentState?.openDrawer();
+          },
+          icon: CircleAvatar(
+            radius: 20.r,backgroundColor: AppColors.white,
+            child: CircleAvatar(
+              radius: 16.r,
+              backgroundImage: AssetImage(ImagePath.blueBook),
+            ),
           ),
         ),
         title:
-            Image.asset("assets/sparkl_logo.png", width: 100.w, height: 25.h),
+            Image.asset(ImagePath.sparklLogo, width: 100.w, height: 25.h),
         actions: [IconButton(onPressed: () {}, icon: Icon(Icons.search))],
       ),
       body: SizedBox(
@@ -37,7 +47,7 @@ class HomeView extends GetView<HomeController> {
               SizedBox(
                 height: 100.h,
                 child: ListView.builder(
-                    itemCount: 10,
+                    itemCount: _homeController.booksInfo.length,
                     scrollDirection: Axis.horizontal,
                     shrinkWrap: true,
                     physics: ScrollPhysics(),
@@ -49,17 +59,13 @@ class HomeView extends GetView<HomeController> {
                           decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               border:
-                                  Border.all(color: Colors.amber, width: 2)),
+                                  Border.all(color: AppColors.themeColor, width: 2)),
                           child: Padding(
                             padding: EdgeInsets.all(5.w),
                             child: CircleAvatar(
-                              radius: 30.r,
+                              radius: 25.r,
                               backgroundImage: AssetImage(
-                                index % 2 == 0
-                                    ? "assets/pre_read_selected.png"
-                                    : index % 3 == 0
-                                        ? "assets/blue_book.png"
-                                        : "assets/emoji.png",
+                                  _homeController.booksInfo[index]['image']
                               ),
                             ),
                           ),
@@ -107,21 +113,21 @@ class HomeView extends GetView<HomeController> {
                           height: 180.h,
                           width: double.infinity,
                           decoration: BoxDecoration(
-                              color: Colors.black87,
+                              color: AppColors.black87,
                               borderRadius: BorderRadius.circular(10.r)),
                           child: InkWell(
                               onTap: () {
                                 _homeController.togglePlayButton();
-                                print(_homeController.isPlaying);
+                                // print(_homeController.isPlaying);
                                 Get.to(LiveView(
-                                  videoPath: "assets/teachervideo.mp4",
+                                  videoPath: ImagePath.teacherVideo,
                                   title: 'Algebraic Expression',
                                   description: 'video description here...',
                                   topic: '',
                                 ));
                               },
                               child: CustomVideoPlayer(
-                                videoPath: "assets/teachervideo.mp4",
+                                videoPath: ImagePath.teacherVideo,
                                 isCircular: false,
                                 isPlaying: true,
                               )),
@@ -133,12 +139,12 @@ class HomeView extends GetView<HomeController> {
                               Expanded(
                                 child: Text(
                                   "Algebraic Expression",
-                                  style: TextStyle(color: Colors.white),
+                                  style: TextStyle(color: AppColors.white),
                                 ),
                               ),
                               Container(
                                 decoration: BoxDecoration(
-                                    color: Colors.black.withOpacity(0.5),
+                                    color: AppColors.black.withOpacity(0.5),
                                     borderRadius: BorderRadius.circular(5.r)),
                                 child: Padding(
                                   padding: EdgeInsets.symmetric(
@@ -148,14 +154,14 @@ class HomeView extends GetView<HomeController> {
                                       Icon(
                                         Icons.circle,
                                         size: 10.sp,
-                                        color: Colors.green,
+                                        color: AppColors.green,
                                       ),
                                       SizedBox(
                                         width: 5.w,
                                       ),
                                       Text(
                                         "Live",
-                                        style: TextStyle(color: Colors.white),
+                                        style: TextStyle(color: AppColors.white),
                                       ),
                                     ],
                                   ),
@@ -174,7 +180,7 @@ class HomeView extends GetView<HomeController> {
                         CircleAvatar(
                           child: CircleAvatar(
                             backgroundImage:
-                                AssetImage("assets/pre_read_selected.png"),
+                                AssetImage(ImagePath.preReadSelected),
                           ),
                         ),
                         SizedBox(
@@ -238,53 +244,41 @@ class HomeView extends GetView<HomeController> {
                             ));
                           },
                           child: Card(
-                            color: Colors.white,
+                            color:AppColors.white,
                             elevation: 5,
-                            shadowColor: Colors.amber,
+                            shadowColor: AppColors.themeColor,
                             child: Padding(
                               padding: EdgeInsets.all(10.w),
                               child: Column(
                                 children: [
-                                  Image.asset(
-                                    _homeController.booksInfo[index]["image"],
-                                    height: 80.h,
-                                    width: 80.w,
-                                  ),
-                                  ConstrainedBox(
-                                    // width: 120.w,
-                                    constraints:
-                                        BoxConstraints(minWidth: 110.w),
-                                    child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor:
-                                            Colors.orange, // Button color
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(
-                                              5.r), // Rounded corners
-                                        ),
-                                        elevation: 2, // Shadow effect
-                                      ),
-                                      onPressed: () {
-                                        Get.to(RecommendedView(
-                                          title: _homeController.booksInfo[index]["title"],
-                                          image: _homeController.booksInfo[index]["image"],
-                                        ));
-                                      },
-                                      child: Padding(
-                                        padding: EdgeInsets.all(5.w),
-                                        child: Text(
-                                          _homeController.booksInfo[index]
-                                              ["title"],
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 12.sp),
-                                        ),
-                                      ),
+                                  Hero(
+                                    tag: _homeController.booksInfo[index]["image"],
+                                    child: Image.asset(
+                                      _homeController.booksInfo[index]["image"],
+                                      height: 80.h,
+                                      width: 80.w,
                                     ),
                                   ),
-                                  SizedBox(
-                                    height: 5.h,
-                                  )
+                                   SizedBox(height: 10.h,),
+                                   Container(
+                                     width: 100.w,
+                                     decoration: BoxDecoration(
+                                       color: AppColors.themeColor,
+                                       borderRadius: BorderRadius.circular(5.r)
+                                     ),
+                                     child: Padding(
+                                          padding: EdgeInsets.all(5.w),
+                                          child: Text(
+                                            textAlign: TextAlign.center,
+                                            overflow: TextOverflow.ellipsis,
+                                            _homeController.booksInfo[index]
+                                                ["title"],
+                                            style: TextStyle(
+                                                // color: AppColors.white,
+                                                fontSize: 12.sp),
+                                          ),
+                                        ),
+                                   ),
                                 ],
                               ),
                             ),
@@ -321,7 +315,7 @@ class HomeView extends GetView<HomeController> {
                   cardBuilder:
                       (context, index, percentThresholdX, percentThresholdY) =>
                           Image.asset(
-                    "assets/stack_card.png",
+                              ImagePath.stackCard,
                   ),
                 ),
               ),
@@ -344,10 +338,9 @@ class HomeView extends GetView<HomeController> {
                       ),
                     ),
                     SizedBox(
-                      height: 10.h,
+                      height: 20.h,
                     ),
                     // Text("email: spark@gmail.com"),
-                    // Text("youtube: spark@youtube.com"),
 
                     OverflowBar(
                       spacing: 30.w,

@@ -1,3 +1,4 @@
+import 'package:demo_app/app/strings/app_colors.dart';
 import 'package:demo_app/app/strings/image_path.dart';
 import 'package:demo_app/app/widgets/custom_video_player.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +34,7 @@ class LiveView extends GetView<LiveController> {
             children: [
               SizedBox(
                   width: double.infinity,
+                  height: 180.h,
                   child:
                       // Obx(() => _liveController.isPlaying.value == false
                       //     ? CustomVideoPlayer(
@@ -82,12 +84,9 @@ class LiveView extends GetView<LiveController> {
           ),
           Expanded(
             child: Padding(
-              padding: EdgeInsets.all(8.sp),
+              padding: EdgeInsets.fromLTRB(8.w,8.h, 8.w,8.h),
               child: Column(
                 children: [
-                  SizedBox(
-                    height: 10.h,
-                  ),
                   Theme(
                     data: Theme.of(context)
                         .copyWith(dividerColor: Colors.transparent),
@@ -102,10 +101,10 @@ class LiveView extends GetView<LiveController> {
                         ],
                       ),
                       leading: CircleAvatar(
-                        radius: 20.r,
+                        radius: 18.r,
                         backgroundColor: Colors.amber,
                         child: CircleAvatar(
-                          radius: 18.r,
+                          radius: 16.r,
                           backgroundImage: AssetImage(ImagePath.preReadSelected),
                         ),
                       ),
@@ -154,7 +153,7 @@ class LiveView extends GetView<LiveController> {
                                   leading: CircleAvatar(
                                     radius: 8.r,
                                     backgroundImage:
-                                        AssetImage("assets/emoji.png"),
+                                        AssetImage(ImagePath.emoji),
                                   ),
                                   title: RichText(
                                     text: TextSpan(
@@ -221,7 +220,42 @@ class LiveView extends GetView<LiveController> {
               ),
             ),
           ),
-
+          // Add Comment TextField at the Bottom
+          SafeArea(
+            child: Padding(
+              padding: EdgeInsets.all(8.w),
+              child: Row(
+                children: [
+                 CircleAvatar(
+                   radius: 16.r,
+                   backgroundImage: AssetImage(ImagePath.emoji),),
+                  SizedBox(width:10.w),
+                  Expanded(
+                    child: TextFormField(
+                      controller: _controller,
+                      decoration: InputDecoration(
+                        hintText: "Add a comment...",
+                        hintStyle: TextStyle(fontSize: 12.sp),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.r),
+                          borderSide: BorderSide.none,
+                        ),
+                        fillColor: AppColors.black12,
+                        filled: true,
+                        contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.send, color: AppColors.themeColor),
+                    onPressed: () {
+                      // Handle send comment action
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );

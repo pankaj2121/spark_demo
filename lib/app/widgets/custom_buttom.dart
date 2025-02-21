@@ -1,3 +1,4 @@
+import 'package:demo_app/app/strings/app_colors.dart';
 import 'package:demo_app/app/widgets/stepper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,7 +23,7 @@ class _CustomButtonState extends State<CustomButton> {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.yellow.shade700,
+        backgroundColor: AppColors.btnThemeColor,
         minimumSize: Size(double.infinity, 45.sp),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.r),
@@ -32,7 +33,7 @@ class _CustomButtonState extends State<CustomButton> {
       child: Text(
         widget.title ?? "",
         style:
-            TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
+            TextStyle(color: AppColors.black, fontWeight: FontWeight.w500),
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:demo_app/app/strings/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,7 +22,7 @@ class CircularStepper extends StatelessWidget {
               size: Size(45.w, 45.h),
               painter: StepperPainter(progress),
             ),
-             Icon(Icons.arrow_back, size: 22.sp, color: Colors.black), // Center icon
+             Icon(Icons.arrow_back, size: 22.sp, color: AppColors.black), // Center icon
           ],
         ),
       ),
@@ -39,13 +40,13 @@ class StepperPainter extends CustomPainter {
     double strokeWidth = 5;
     Rect rect = Rect.fromLTWH(0, 0, size.width, size.height);
     Paint backgroundPaint = Paint()
-      ..color = Colors.grey.withOpacity(0.3) // Light background color
+      ..color = AppColors.black12 // Light background color
       ..style = PaintingStyle.stroke
       ..strokeWidth = strokeWidth
       ..strokeCap = StrokeCap.square;
 
     Paint progressPaint = Paint()
-      ..color = Colors.amber // Progress color
+      ..color = AppColors.themeColor // Progress color
       ..style = PaintingStyle.stroke
       ..strokeWidth = strokeWidth
       ..strokeCap = StrokeCap.square;

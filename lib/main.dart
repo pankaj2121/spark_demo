@@ -1,3 +1,4 @@
+import 'package:demo_app/app/strings/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -68,15 +69,15 @@ class _MyAppState extends State<MyApp>with WidgetsBindingObserver {
           initialRoute: AppPages.INITIAL,
           getPages: AppPages.routes,
           theme: ThemeData(
-            scaffoldBackgroundColor: Colors.white,
+            scaffoldBackgroundColor: AppColors.white,
             // scaffoldBackgroundColor: Colors.yellow.shade50,
             fontFamily: "Poppins",
             appBarTheme: AppBarTheme(
               centerTitle: true,
-              backgroundColor: Colors.transparent,
+              backgroundColor: AppColors.white,
               titleTextStyle: TextStyle(
                 fontSize: 18.sp,
-                  fontWeight: FontWeight.w600, color: Colors.black)
+                  fontWeight: FontWeight.w600, color: AppColors.black)
             )
           ),
         );

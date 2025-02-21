@@ -37,4 +37,17 @@ class OnboardingController extends GetxController {
     }
   }
 
+
+  final List<Map<String, dynamic>> dataInfo = [
+    {
+      "title": "Learning Made \nPersonal",
+      "subtitle": "A Program designed just for YOU!"
+    },
+    {
+      "title": "1-on-1 Live Classes",
+      "subtitle": "Learning customized for every student"
+    },
+    {"title": "Doubt Resolution \nwith Teachers", "subtitle": ""}
+  ];
+
 }

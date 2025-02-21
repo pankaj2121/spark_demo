@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:camera/camera.dart';
 import 'package:demo_app/app/modules/home/views/home_view.dart';
+import 'package:demo_app/app/strings/image_path.dart';
 import 'package:demo_app/app/widgets/chat_card.dart';
 import 'package:demo_app/app/widgets/custom_buttom.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -17,18 +18,6 @@ class OnboardingView extends GetView<OnboardingController> {
 
   final OnboardingController _onBoardController =
       Get.put(OnboardingController());
-
-  final List<Map<String, dynamic>> dataInfo = [
-    {
-      "title": "Learning Made \nPersonal",
-      "subtitle": "A Program designed just for YOU!"
-    },
-    {
-      "title": "1-on-1 Live Classes",
-      "subtitle": "Learning customized for every student"
-    },
-    {"title": "Doubt Resolution \nwith Teachers", "subtitle": ""}
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +103,7 @@ class OnboardingView extends GetView<OnboardingController> {
                 curve: Curves.easeInOut,
                 width: _onBoardController.count == 1 ? 120.w : 100.w,
                 height: _onBoardController.count == 1 ? 120.h : 100.h,
-                child: Image.asset('assets/sparkl_logo.png'),
+                child: Image.asset(ImagePath.sparklLogo),
               ),
             ),
           )
@@ -145,10 +134,10 @@ class OnboardingView extends GetView<OnboardingController> {
                   children: [
                     Text(
                       _onBoardController.count == 1
-                          ? dataInfo[0]['title']
+                          ? _onBoardController.dataInfo[0]['title']
                           : _onBoardController.count == 2
-                              ? dataInfo[1]['title']
-                              : dataInfo[2]['title'],
+                              ? _onBoardController.dataInfo[1]['title']
+                              : _onBoardController.dataInfo[2]['title'],
                       textAlign: _onBoardController.count == 1
                           ? TextAlign.center
                           : TextAlign.left,
@@ -160,10 +149,10 @@ class OnboardingView extends GetView<OnboardingController> {
                     SizedBox(height: 10.h),
                     Text(
                       _onBoardController.count == 1
-                          ? dataInfo[0]['subtitle']
+                          ? _onBoardController.dataInfo[0]['subtitle']
                           : _onBoardController.count == 2
-                              ? dataInfo[1]['subtitle']
-                              : dataInfo[2]['subtitle'],
+                              ? _onBoardController.dataInfo[1]['subtitle']
+                              : _onBoardController.dataInfo[2]['subtitle'],
                       textAlign: _onBoardController.count == 1
                           ? TextAlign.center
                           : TextAlign.left,
@@ -211,28 +200,28 @@ class OnboardingView extends GetView<OnboardingController> {
                         Positioned(
                             top: -27.h,
                             child: Image.asset(
-                              'assets/stack_card.png',
+                              ImagePath.stackCard,
                               height: 320.h,
                               width: 300.w,
                             )),
                         Positioned(
                             top: -4.h,
                             child: Image.asset(
-                              'assets/stack_card.png',
+                              ImagePath.stackCard,
                               height: 320.h,
                               width: 320.w,
                             )),
                         Positioned(
                             top: 22.h,
                             child: Image.asset(
-                              'assets/stack_card.png',
+                              ImagePath.stackCard,
                               height: 320.h,
                               width: 350.w,
                             )),
                         Positioned(
                             top: 50.h,
                             child: Image.asset(
-                              'assets/stack_card.png',
+                              ImagePath.stackCard,
                               height: 320.h,
                               width: 380.w,
                             ))
@@ -293,7 +282,7 @@ class OnboardingView extends GetView<OnboardingController> {
                             ? 50.w
                             : 0, // Shrink size when moved
                     child: CustomVideoPlayer(
-                      videoPath: "assets/teachervideo.mp4",
+                      videoPath: ImagePath.teacherVideo,
                       isCircular: _onBoardController.count == 3 ? true : false,
                     ),
                   ),
@@ -356,7 +345,7 @@ class OnboardingView extends GetView<OnboardingController> {
                         ? 50.w
                         : 0, // Shrink size when moved
                     child: CustomVideoPlayer(
-                      videoPath: "assets/teachervideo.mp4",
+                      videoPath:  ImagePath.teacherVideo,
                       isCircular: true,
                     ),
                   ),
@@ -419,7 +408,7 @@ class OnboardingView extends GetView<OnboardingController> {
                                             CircularProgressIndicator()), // Loading indicator until camera initializes
                               )
                             : CustomVideoPlayer(
-                                videoPath: "assets/studentvideo.mp4",
+                                videoPath:  ImagePath.studentVideo,
                                 isCircular: true,
                               ),
                       ),
@@ -441,7 +430,7 @@ class OnboardingView extends GetView<OnboardingController> {
                           curve: Curves.ease,
                           duration: Duration(seconds: 1),
                           child: roundedImgBox(
-                              imagePath: "assets/blue_book.png",
+                              imagePath:  ImagePath.blueBook,
                               height: 50.h,
                               width: 50.w),
                         )),
@@ -454,7 +443,7 @@ class OnboardingView extends GetView<OnboardingController> {
                           curve: Curves.ease,
                           duration: Duration(seconds: 1),
                           child: roundedImgBox(
-                              imagePath: "assets/pre_read_selected.png",
+                              imagePath:  ImagePath.preReadSelected,
                               height: 30.h,
                               width: 30.w),
                         )),
@@ -503,7 +492,7 @@ class OnboardingView extends GetView<OnboardingController> {
                           curve: Curves.ease,
                           duration: Duration(seconds: 1),
                           child: roundedImgBox(
-                              imagePath: "assets/emoji.png",
+                              imagePath:  ImagePath.emoji,
                               height: 40.h,
                               width: 40.w),
                         )),
