@@ -7,6 +7,8 @@ abstract class Routes {
   static const ONBOARDING = _Paths.ONBOARDING;
   static const LIVE = _Paths.LIVE;
   static const RECOMMENDED = _Paths.RECOMMENDED;
+  static const SUBJECTS = _Paths.SUBJECTS;
+  static const SUBJECT_DETAILS = _Paths.SUBJECT_DETAILS;
 }
 
 abstract class _Paths {
@@ -15,4 +17,6 @@ abstract class _Paths {
   static const ONBOARDING = '/onboarding';
   static const LIVE = '/live';
   static const RECOMMENDED = '/recommended';
+  static const SUBJECTS = '/subjects';
+  static const SUBJECT_DETAILS = '/subject-details';
 }

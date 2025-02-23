@@ -1,7 +1,7 @@
 class ImagePath{
 
   static const emoji = "assets/emoji.png";
-  static const sparklLogo = "assets/sparkl_logo.png";
+  static const sparkLogo = "assets/spark_logo.png";
   static const whatsapp = "assets/WhatsApp.png";
   static const instagram = "assets/instagram.png";
   static const youtube = "assets/Youtube_logo.png";

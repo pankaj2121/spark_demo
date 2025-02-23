@@ -1,5 +1,5 @@
 import 'package:demo_app/app/modules/live/views/live_view.dart';
-import 'package:demo_app/app/modules/recommended/views/recommended_view.dart';
+import 'package:demo_app/app/modules/subjects/views/subjects_view.dart';
 import 'package:demo_app/app/strings/app_colors.dart';
 import 'package:demo_app/app/strings/image_path.dart';
 import 'package:demo_app/app/widgets/custom_video_player.dart';
@@ -19,23 +19,32 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      drawer: CustomDrawer(userName: 'John',userEmail: "john@gmail.com",userImagePath: ImagePath.blueBook,),
+      drawer: CustomDrawer(
+        userName: 'John',
+        userEmail: "john@gmail.com",
+        userImagePath: ImagePath.emoji,
+      ),
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
             _scaffoldKey.currentState?.openDrawer();
           },
           icon: CircleAvatar(
-            radius: 20.r,backgroundColor: AppColors.white,
+            radius: 20.r,
+            backgroundColor: AppColors.themeColor,
             child: CircleAvatar(
               radius: 16.r,
-              backgroundImage: AssetImage(ImagePath.blueBook),
+              backgroundImage: AssetImage(ImagePath.emoji),
             ),
           ),
         ),
-        title:
-            Image.asset(ImagePath.sparklLogo, width: 100.w, height: 25.h),
-        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.search))],
+        title: Image.asset(ImagePath.sparkLogo, width: 100.w, height: 25.h),
+        actions: [
+          IconButton(
+              color: AppColors.themeDarkColor,
+              onPressed: () {},
+              icon: Icon(Icons.search))
+        ],
       ),
       body: SizedBox(
         height: double.infinity,
@@ -58,15 +67,14 @@ class HomeView extends GetView<HomeController> {
                         child: Container(
                           decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              border:
-                                  Border.all(color: AppColors.themeColor, width: 2)),
+                              border: Border.all(
+                                  color: AppColors.themeColor, width: 2)),
                           child: Padding(
                             padding: EdgeInsets.all(5.w),
                             child: CircleAvatar(
                               radius: 25.r,
                               backgroundImage: AssetImage(
-                                  _homeController.booksInfo[index]['image']
-                              ),
+                                  _homeController.booksInfo[index]['image']),
                             ),
                           ),
                         ),
@@ -161,7 +169,8 @@ class HomeView extends GetView<HomeController> {
                                       ),
                                       Text(
                                         "Live",
-                                        style: TextStyle(color: AppColors.white),
+                                        style:
+                                            TextStyle(color: AppColors.white),
                                       ),
                                     ],
                                   ),
@@ -186,7 +195,7 @@ class HomeView extends GetView<HomeController> {
                         SizedBox(
                           width: 10.w,
                         ),
-                        Expanded(child: Text("Algebraic Expression")),
+                        Expanded(child: Text("Algebraic Expression Topic")),
                         SizedBox(
                           width: 10.w,
                         ),
@@ -237,14 +246,14 @@ class HomeView extends GetView<HomeController> {
                       return Padding(
                         padding: EdgeInsets.only(left: 8.w, bottom: 5.h),
                         child: GestureDetector(
-                          onTap: (){
-                            Get.to(RecommendedView(
+                          onTap: () {
+                            Get.to(SubjectsView(
                               title: _homeController.booksInfo[index]["title"],
                               image: _homeController.booksInfo[index]["image"],
                             ));
                           },
                           child: Card(
-                            color:AppColors.white,
+                            color: AppColors.white,
                             elevation: 5,
                             shadowColor: AppColors.themeColor,
                             child: Padding(
@@ -252,33 +261,37 @@ class HomeView extends GetView<HomeController> {
                               child: Column(
                                 children: [
                                   Hero(
-                                    tag: _homeController.booksInfo[index]["image"],
+                                    tag: _homeController.booksInfo[index]
+                                        ["image"],
                                     child: Image.asset(
                                       _homeController.booksInfo[index]["image"],
                                       height: 80.h,
                                       width: 80.w,
                                     ),
                                   ),
-                                   SizedBox(height: 10.h,),
-                                   Container(
-                                     width: 100.w,
-                                     decoration: BoxDecoration(
-                                       color: AppColors.themeColor,
-                                       borderRadius: BorderRadius.circular(5.r)
-                                     ),
-                                     child: Padding(
-                                          padding: EdgeInsets.all(5.w),
-                                          child: Text(
-                                            textAlign: TextAlign.center,
-                                            overflow: TextOverflow.ellipsis,
-                                            _homeController.booksInfo[index]
-                                                ["title"],
-                                            style: TextStyle(
-                                                // color: AppColors.white,
-                                                fontSize: 12.sp),
-                                          ),
-                                        ),
-                                   ),
+                                  SizedBox(
+                                    height: 10.h,
+                                  ),
+                                  Container(
+                                    width: 100.w,
+                                    decoration: BoxDecoration(
+                                        color: AppColors.themeColor,
+                                        borderRadius:
+                                            BorderRadius.circular(5.r)),
+                                    child: Padding(
+                                      padding: EdgeInsets.all(5.w),
+                                      child: Text(
+                                        textAlign: TextAlign.center,
+                                        overflow: TextOverflow.ellipsis,
+                                        _homeController.booksInfo[index]
+                                            ["title"],
+                                        style: TextStyle(
+                                          // fontWeight: FontWeight.w500,
+                                            color: AppColors.black,
+                                            fontSize: 12.sp),
+                                      ),
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
@@ -309,14 +322,19 @@ class HomeView extends GetView<HomeController> {
               SizedBox(
                 height: 300.h,
                 width: double.infinity,
-                child: CardSwiper(
-                  cardsCount: 5,
-                  allowedSwipeDirection: AllowedSwipeDirection.all(),
-                  cardBuilder:
-                      (context, index, percentThresholdX, percentThresholdY) =>
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    CardSwiper(
+                      cardsCount: 5,
+                      allowedSwipeDirection: AllowedSwipeDirection.all(),
+                      cardBuilder: (context, index, percentThresholdX,
+                              percentThresholdY) =>
                           Image.asset(
-                              ImagePath.stackCard,
-                  ),
+                        ImagePath.stackCard,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               SizedBox(
@@ -327,7 +345,7 @@ class HomeView extends GetView<HomeController> {
                 child: Column(
                   children: [
                     Text(
-                      "Contact Us",
+                      "Connect Us",
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
@@ -351,7 +369,7 @@ class HomeView extends GetView<HomeController> {
                           child: Column(
                             children: [
                               CircleAvatar(
-                                radius: 20.r,
+                                radius: 18.r,
                                 backgroundImage: AssetImage(ImagePath.whatsapp),
                               ),
                               SizedBox(
@@ -359,7 +377,7 @@ class HomeView extends GetView<HomeController> {
                               ),
                               Text(
                                 "whatsApp",
-                                style: TextStyle(fontSize: 12.sp),
+                                style: TextStyle(fontSize: 10.sp),
                               )
                             ],
                           ),
@@ -368,7 +386,7 @@ class HomeView extends GetView<HomeController> {
                           child: Column(
                             children: [
                               CircleAvatar(
-                                radius: 18.r,
+                                radius: 15.r,
                                 backgroundImage: AssetImage(ImagePath.youtube),
                               ),
                               SizedBox(
@@ -376,7 +394,7 @@ class HomeView extends GetView<HomeController> {
                               ),
                               Text(
                                 "Youtube",
-                                style: TextStyle(fontSize: 12.sp),
+                                style: TextStyle(fontSize: 10.sp),
                               )
                             ],
                           ),
@@ -385,7 +403,7 @@ class HomeView extends GetView<HomeController> {
                           child: Column(
                             children: [
                               CircleAvatar(
-                                radius: 18.r,
+                                radius: 15.r,
                                 backgroundImage:
                                     AssetImage(ImagePath.instagram),
                               ),
@@ -394,13 +412,13 @@ class HomeView extends GetView<HomeController> {
                               ),
                               Text(
                                 "Instagram",
-                                style: TextStyle(fontSize: 12.sp),
+                                style: TextStyle(fontSize: 10.sp),
                               )
                             ],
                           ),
                         )
                       ],
-                    )
+                    ),
                   ],
                 ),
               ),

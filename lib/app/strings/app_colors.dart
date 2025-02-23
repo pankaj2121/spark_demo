@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class AppColors{
 
   static const themeColor = Colors.orangeAccent ;
+  static const themeDarkColor = Colors.deepOrange ;
   static var appBarColor = Colors.orangeAccent[100] ;
   static const btnThemeColor = Colors.orangeAccent ;
   static const black = Colors.black ;

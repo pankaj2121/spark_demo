@@ -153,7 +153,7 @@ class LiveView extends GetView<LiveController> {
                                   leading: CircleAvatar(
                                     radius: 8.r,
                                     backgroundImage:
-                                        AssetImage(ImagePath.emoji),
+                                        AssetImage(_liveController.comments[index]["userImage"]),
                                   ),
                                   title: RichText(
                                     text: TextSpan(
@@ -227,7 +227,7 @@ class LiveView extends GetView<LiveController> {
               child: Row(
                 children: [
                  CircleAvatar(
-                   radius: 16.r,
+                   radius: 15.r,
                    backgroundImage: AssetImage(ImagePath.emoji),),
                   SizedBox(width:10.w),
                   Expanded(
@@ -240,14 +240,14 @@ class LiveView extends GetView<LiveController> {
                           borderRadius: BorderRadius.circular(8.r),
                           borderSide: BorderSide.none,
                         ),
-                        fillColor: AppColors.black12,
+                        fillColor: AppColors.black12.withOpacity(0.075),
                         filled: true,
                         contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
                       ),
                     ),
                   ),
                   IconButton(
-                    icon: Icon(Icons.send, color: AppColors.themeColor),
+                    icon: Icon(Icons.send, color: AppColors.black),
                     onPressed: () {
                       // Handle send comment action
                     },

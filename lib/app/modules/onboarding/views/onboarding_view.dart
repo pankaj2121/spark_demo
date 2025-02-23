@@ -103,7 +103,7 @@ class OnboardingView extends GetView<OnboardingController> {
                 curve: Curves.easeInOut,
                 width: _onBoardController.count == 1 ? 120.w : 100.w,
                 height: _onBoardController.count == 1 ? 120.h : 100.h,
-                child: Image.asset(ImagePath.sparklLogo),
+                child: Image.asset(ImagePath.sparkLogo),
               ),
             ),
           )

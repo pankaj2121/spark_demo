@@ -1,13 +1,14 @@
 import 'package:get/get.dart';
-
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/live/bindings/live_binding.dart';
 import '../modules/live/views/live_view.dart';
 import '../modules/onboarding/bindings/onboarding_binding.dart';
 import '../modules/onboarding/views/onboarding_view.dart';
-import '../modules/recommended/bindings/recommended_binding.dart';
-import '../modules/recommended/views/recommended_view.dart';
+import '../modules/subjectDetails/bindings/subject_details_binding.dart';
+import '../modules/subjectDetails/views/subject_details_view.dart';
+import '../modules/subjects/bindings/subjects_binding.dart';
+import '../modules/subjects/views/subjects_view.dart';
 
 part 'app_routes.dart';
 
@@ -33,9 +34,15 @@ class AppPages {
       binding: LiveBinding(),
     ),
     GetPage(
-      name: _Paths.RECOMMENDED,
-      page: () => RecommendedView(title: '', image: '',),
-      binding: RecommendedBinding(),
+      name: _Paths.SUBJECTS,
+      page: () => SubjectsView(title: '',
+        image: '',),
+      binding: SubjectsBinding(),
+    ),
+    GetPage(
+      name: _Paths.SUBJECT_DETAILS,
+      page: () => SubjectDetailsView(chapter: '',),
+      binding: SubjectDetailsBinding(),
     ),
   ];
 }
