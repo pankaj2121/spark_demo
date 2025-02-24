@@ -1,8 +1,6 @@
 import 'package:get/get.dart';
 
-class RecommendedController extends GetxController {
-  //TODO: Implement RecommendedController
-
+class SubjectsController extends GetxController {
   final count = 0.obs;
   @override
   void onInit() {

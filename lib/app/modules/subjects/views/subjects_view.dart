@@ -1,24 +1,25 @@
-import 'package:demo_app/app/strings/app_colors.dart';
+import 'package:demo_app/app/modules/subjectDetails/views/subject_details_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import '../controllers/recommended_controller.dart';
+import '../../../strings/app_colors.dart';
+import '../controllers/subjects_controller.dart';
 
-class RecommendedView extends GetView<RecommendedController> {
+class SubjectsView extends GetView<SubjectsController> {
   final String title;
   final String image;
-  const RecommendedView({required this.title, required this.image, super.key});
+  const SubjectsView({required this.title, required this.image, super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(title)),
-      body: Padding(
-        padding: EdgeInsets.all(12.sp),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Row(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding:  EdgeInsets.all(12.w),
+              child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
@@ -33,7 +34,10 @@ class RecommendedView extends GetView<RecommendedController> {
                   ),
                 ],
               ),
-              ListView.separated(
+            ),
+            Padding(
+              padding:  EdgeInsets.all(12.w),
+              child: ListView.separated(
                   shrinkWrap: true,
                   itemCount: 10,
                   physics: ScrollPhysics(),
@@ -45,8 +49,10 @@ class RecommendedView extends GetView<RecommendedController> {
                     );
                   },
                   itemBuilder: (context, index) {
+                    String allIndices = List.generate(index +2, (i) => i.toString()).join(", ");
                     return ListTile(
                       dense: true,
+                      contentPadding: EdgeInsets.zero,
                       leading: CircleAvatar(
                         radius: 22.r,
                         backgroundColor: AppColors.themeColor,
@@ -58,11 +64,14 @@ class RecommendedView extends GetView<RecommendedController> {
                       ),
                       trailing: Icon(Icons.arrow_right),
                       title: Text("Chapter ${index + 1}", style: TextStyle(fontWeight: FontWeight.w600),),
-                      subtitle: Text("Topics ${index + 1}",style: TextStyle(color: AppColors.black54),),
+                      subtitle: Text("Topics: ${allIndices }",style: TextStyle(color: AppColors.black54),),
+                      onTap: (){
+                        Get.to(SubjectDetailsView(chapter:"Chapter ${index + 1}" ));
+                      },
                     );
-                  })
-            ],
-          ),
+                  }),
+            )
+          ],
         ),
       ),
     );
