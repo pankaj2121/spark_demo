@@ -373,7 +373,7 @@ class HomeView extends GetView<HomeController> {
                                 backgroundImage: AssetImage(ImagePath.whatsapp),
                               ),
                               SizedBox(
-                                height: 5.h,
+                                height: 1.h,
                               ),
                               Text(
                                 "whatsApp",
